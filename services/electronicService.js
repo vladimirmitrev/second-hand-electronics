@@ -27,3 +27,19 @@ exports.buy = async (electronicId, userId) => {
 exports.delete = (electronicId) => Electronic.findByIdAndDelete(electronicId);
 
 exports.edit = (electronicId, electronicData) => Electronic.findByIdAndUpdate(electronicId, electronicData,{ runValidators: true});
+
+exports.search = (name, type) => {
+    // let result = await Electronic.find().lean();
+    let query = {};
+  
+    if(name) {
+      query.name = new RegExp(name, 'i');
+    }
+  
+    if(type) {
+      query.type = new RegExp(type, 'i');
+      // query.type = type.toLowerCase(); matching exactly and to lower case
+    }
+    
+    return Electronic.find(query);
+  };
